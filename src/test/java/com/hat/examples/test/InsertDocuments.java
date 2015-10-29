@@ -1,5 +1,9 @@
 package com.hat.examples.test;
 
+import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
@@ -8,10 +12,25 @@ import com.hat.examples.repo.PersonRepo;
 import com.hat.examples.utils.ApplicationDataUtils;
 
 public class InsertDocuments {
-	public static void main(String[] args) {
-		ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext(
+	
+	public final static Logger logger = Logger.getLogger(InsertDocuments.class);
+	
+	private ClassPathXmlApplicationContext context ;
+	
+	private PersonRepo personRepo; 
+	
+	@Before
+	public void before() throws Exception {
+	
+		context = new ClassPathXmlApplicationContext(
 				new ClassPathResource("spring-config.xml").getPath());
-		PersonRepo personRepo = context.getBean(PersonRepo.class);
+		
+		personRepo = context.getBean(PersonRepo.class);
+
+	}
+	
+	@Test
+	public void inserDocument() {
 
 		//create person1
 		Person person1 = new Person();
@@ -33,19 +52,22 @@ public class InsertDocuments {
 
 		//findAll person
 		Iterable<Person> personList = personRepo.findAll();
-		System.out.println("Person List : ");
+		logger.info("Person List : ");
 		for (Person person : personList) {
-			System.out.println(person);
+			logger.info(person);
 		}
 
 		//search by name 
 		personList = personRepo.searchByName("Hamza");
 
 		for (Person person : personList) {
-			System.out.println(person);
+			logger.info(person);
 		}
 
+	}
+	
+	@After
+	public void after() throws Exception {
 		context.close();
-
 	}
 }

@@ -9,12 +9,14 @@
           http://www.springframework.org/schema/beans
           http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
 
+	<context:property-placeholder location="classpath:mongo.properties" />
+
 	<!-- Default bean name is 'mongo' -->
-	<mongo:mongo id="mongo" host="localhost" port="27017" />
+	<mongo:mongo id="mongo" host="${host}" port="${port}" />
 
 	<bean id="mongoTemplate" class="org.springframework.data.mongodb.core.MongoTemplate">
 		<constructor-arg ref="mongo" />
-		<constructor-arg name="databaseName" value="testdb" />
+		<constructor-arg name="databaseName" value="${db.name}" />
 	</bean>
 
 	<mongo:repositories base-package="com.hat.examples.repo"></mongo:repositories>
