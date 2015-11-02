@@ -12,7 +12,7 @@ import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 
-import com.hat.examples.entity.Person;
+import com.hat.examples.person.entity.Person;
 
 public class CriteriaSearchDocument {
 	

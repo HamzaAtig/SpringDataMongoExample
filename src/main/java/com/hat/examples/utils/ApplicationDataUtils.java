@@ -3,8 +3,8 @@ package com.hat.examples.utils;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.hat.examples.entity.Address;
-import com.hat.examples.entity.Car;
+import com.hat.examples.person.entity.Address;
+import com.hat.examples.person.entity.Car;
 
 public class ApplicationDataUtils {
 

@@ -1,4 +1,4 @@
-package com.hat.examples.entity;
+package com.hat.examples.person.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;

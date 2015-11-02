@@ -11,7 +11,7 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 
-import com.hat.examples.entity.Person;
+import com.hat.examples.person.entity.Person;
 
 public class UpdateDocument {
 

@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.core.io.ClassPathResource;
 
-import com.hat.examples.entity.Person;
+import com.hat.examples.person.entity.Person;
 import com.hat.examples.repo.PersonRepo;
 
 public class RepositorySearchDocument {

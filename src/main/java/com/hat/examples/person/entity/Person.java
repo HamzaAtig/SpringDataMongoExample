@@ -1,12 +1,14 @@
-package com.hat.examples.entity;
+package com.hat.examples.person.entity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
+import org.springframework.data.annotation.TypeAlias;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+@TypeAlias(value = "person")
 @Document(collection = "person")
 public class Person {
 
@@ -23,8 +25,26 @@ public class Person {
 
 	public Person() {
 	}
+	
+	public Person(String name, int age, List<Address> addresses, List<Car> cars ) {
+		super();
+		this.name = name;
+		this.age = age;
+		this.addresses = addresses;
+		this.cars = cars;
+	}
 
 	@PersistenceConstructor
+	public Person(Long personId, String name, int age, List<Address> addresses,
+			List<Car> cars) {
+		super();
+		this.personId = personId;
+		this.name = name;
+		this.age = age;
+		this.addresses = addresses;
+		this.cars = cars;
+	}
+
 	public Person(Long personId, String name, int age, List<Address> addresses) {
 		super();
 		this.personId = personId;

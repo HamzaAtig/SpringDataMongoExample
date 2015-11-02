@@ -3,7 +3,7 @@ package com.hat.examples.repo;
 import org.springframework.data.mongodb.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 
-import com.hat.examples.entity.Person;
+import com.hat.examples.person.entity.Person;
 
 public interface PersonRepo extends CrudRepository<Person, Long> {
 

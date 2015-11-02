@@ -1,4 +1,4 @@
-package com.hat.examples.entity;
+package com.hat.examples.person.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.annotation.PersistenceConstructor;
@@ -21,8 +21,15 @@ public class Address {
 	private long zipcode;
 
 	public Address() {
+		super();
+	}
 
-		System.out.println("CAlling default cons");
+	public Address(String address, String city, String state, long zipcode) {
+		super();
+		this.address = address;
+		this.city = city;
+		this.state = state;
+		this.zipcode = zipcode;
 	}
 
 	@PersistenceConstructor
@@ -68,10 +75,19 @@ public class Address {
 		this.zipcode = zipcode;
 	}
 
+	public long getAddressId() {
+		return addressId;
+	}
+
+	public void setAddressId(long addressId) {
+		this.addressId = addressId;
+	}
+
 	@Override
 	public String toString() {
-		return "Address [address=" + address + ", city=" + city + ", state="
-				+ state + ", zipcode=" + zipcode + "]";
+		return "Address [addressId=" + addressId + ", address=" + address
+				+ ", city=" + city + ", state=" + state + ", zipcode="
+				+ zipcode + "]";
 	}
 
 }
