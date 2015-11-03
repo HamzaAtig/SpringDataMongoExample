@@ -7,6 +7,7 @@ import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import com.hat.examples.person.entity.Address;
 import com.hat.examples.person.entity.Car;
@@ -17,23 +18,23 @@ import com.hat.examples.seq.SequenceDao;
 public class DataCreator {
 
 	/*  Person Data */
-	public static String[] names =new String[] {"Jone","Michael","Jane","Piter","Monica"};
+	public static List<String> names = Arrays.asList(new String[] {"Jone","Michael","Jane","Piter","Monica"});
 	
-	public static int[] ages =new int[] {18,20,22,25,30,35,37,40};
+	public static List<Integer> ages =Arrays.asList(new Integer[] {18,20,22,25,30,35,37,40});
 	
-	public static String[] addresses = new String[] {"18 rue ","20 rue ","25 rue  "," 30 rue ","35 rue","40 rue "};
+	public static List<String> addresses =Arrays.asList(new String[] {"18 rue ","20 rue ","25 rue  "," 30 rue ","35 rue","40 rue "});
 	
-	public static String[] cities  = new String[] {"Londre","Paris","Munic","Toulouse","Nice","Amesterdam"};
+	public static List<String> cities  =Arrays.asList(new String[] {"Londre","Paris","Munic","Toulouse","Nice","Amesterdam"});
 
-	public static String[] states  = new String[] {"France","England","German","NetherLands"};
+	public static List<String> states  =Arrays.asList(new String[] {"France","England","German","NetherLands"});
 	
-	public static String[] brands = new String[] {"BMW","Audit","Peugeot","Mercedes"};
+	public static List<String> brands =Arrays.asList(new String[] {"BMW","Audit","Peugeot","Mercedes"});
 
-	public static String[] serials = new String[] {"aaa1225aaa","bbb2558bbbb","ccccc558552cccc","qqqq4778787qqqq","oooo578451oooo"};
+	public static List<String> serials =Arrays.asList(new String[] {"aaa1225aaa","bbb2558bbbb","ccccc558552cccc","qqqq4778787qqqq","oooo578451oooo"});
 
-	public static String[] colors = new String[] {"yellow","green","red","black","white"};
+	public static List<String> colors =Arrays.asList(new String[] {"yellow","green","red","black","white"});
 	
-	public static long[]  zipcodes = new long[] {75015l,80869l,978800l,12500l,64100l};
+	public static List<Long>  zipcodes = Arrays.asList(new Long[] {75015l,80869l,978800l,12500l,64100l});
 	
 	private static final String CAR_SEQ_KEY = "car";
 
@@ -55,28 +56,29 @@ public class DataCreator {
 	
 	public List<Person> getPersons(Integer number){
 		List<Person> persons = new ArrayList<Person>(); 
-		Random random = new Random();
+		
 		for (int i = 0; i < number; i++) {
-			int nameRand = random.nextInt(names.length);
-			int ageRand = random.nextInt(ages.length);
-			int addressRand = random.nextInt(addresses.length);
-			int cityRand = random.nextInt(cities.length);
-			int stateRand = random.nextInt(states.length);
-			int brandRand = random.nextInt(brands.length);
-			int serialRand = random.nextInt(serials.length);
-			int colorRand = random.nextInt(colors.length);
-			int zipcodeRand = random.nextInt(zipcodes.length);
-			Car car = new Car(brands[brandRand], serials[serialRand], colors[colorRand]);
+			Car car = new Car(getElementFromList(brands), getElementFromList(serials), getElementFromList(colors));
 			car.setCarId(sequenceDao.getNextSequenceId(CAR_SEQ_KEY));
 			List<Car> cars = Arrays.asList(new Car[]{car});
-			Address address = new Address(addresses[addressRand], cities[cityRand], states[stateRand], zipcodes[zipcodeRand]);
+			Address address = new Address(getElementFromList(addresses), getElementFromList(cities), getElementFromList(states), getElementFromList(zipcodes));
 			address.setAddressId(sequenceDao.getNextSequenceId(ADDRESS_SEQ_KEY));
 			List<Address> addresses = Arrays.asList(new Address[]{address});
-			Person person = new Person(names[nameRand], ages[ageRand], addresses, cars);
+			Person person = new Person(getElementFromList(names), getElementFromList(ages), addresses, cars);
 			person.setPersonId(sequenceDao.getNextSequenceId(PERSON_SEQ_KEY));
 			persons.add(person);
 		}
 		return persons;
+	}
+	
+	private static <T>  T getElementFromList(List<T> elements){
+		Random random = new Random();
+		if(!CollectionUtils.isEmpty(elements) ){
+			int index =  random.nextInt(elements.size());
+			return elements.get(index);
+		}else{
+			return null ; 
+		}
 	}
 	
 }
